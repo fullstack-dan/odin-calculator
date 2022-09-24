@@ -34,7 +34,7 @@ body {
     flex-wrap: wrap;
 
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 436px;
 
     gap: 4px;
