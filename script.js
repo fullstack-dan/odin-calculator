@@ -3,16 +3,21 @@ const output = document.querySelector('#output')
 var currentOp = "";
 var operators;
 var operands;
+var chars;
 
 const buttons = document.querySelectorAll('.button');
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if (button.classList.contains('operator')) {
-            currentOp += (` ${button.dataset.val} `);
+            if (!currentOp[0]) {
+                currentOp += button.dataset.val;
+            } else {
+                currentOp += (` ${button.dataset.val} `);
+            }
         } else {
             currentOp += button.dataset.val;
         }
-        
+
         output.textContent = currentOp;
     });
 });
@@ -29,8 +34,43 @@ function calculate(data) {
         return;
     }
 
+    //at this point dealing with string of form (a + b - c * d / e)
+    while (chars.includes("*") || chars.includes("/")) {
+        for (i = 0; i < chars.length; i++) {
+            let temp;
+            switch (chars[i]) {
+                case "*":
+                    temp = chars[i-1] * chars[i+1];
+                    chars.splice(i-1, 3, temp);
+                    i = 0;
+                    break;
+                case "/":
+                    temp = chars[i-1] / chars[i+1];
+                    chars.splice(i-1, 3, temp);
+                    i = 0;
+                    break;
+            }
+        }
+    }
+    while (chars.includes("+") || chars.includes("-")) {
+        for (i = 0; i < chars.length; i++) {
+            let temp;
+            switch (chars[i]) {
+                case "+":
+                    temp = Number(chars[i-1]) + Number(chars[i+1]);
+                    chars.splice(i-1, 3, temp);
+                    i = 0;
+                    break;
+                case "-":
+                    temp = Number(chars[i-1]) - Number(chars[i+1]);
+                    chars.splice(i-1, 3, temp);
+                    i = 0;
+                    break;
+            }
+        }
+    }
 
-
+    output.textContent = chars[0];
 
 }
 
@@ -39,9 +79,8 @@ function parse(data) {
         alert('Invalid operation! Please try again.');
         return false;
     }
-    
-    
-
+    chars = data.split(' ');
+    return true;
 }
 
 function validate(data) {
@@ -50,22 +89,29 @@ function validate(data) {
 
     if (isNaN(trimmed.charAt(trimmed.length - 1))) valid = false; //check last char for operators
 
-    if (isNaN(trimmed.charAt(0))) { //check first char for a number or negative value
+    if (isNaN(trimmed.charAt(0))) { //check first char for operators
         if (trimmed.charAt(0) == "-") {
             if (isNaN(trimmed.charAt(1))) valid = false;
-        }
+        } else valid = false;
     } else {
         for (i = 0; i < trimmed.length; i++) {
-            if (trimmed.charAt(i-1)) {
-                if (trimmed.charAt(i) == trimmed.charAt(i-1)) { //check for repeated operators
+            if (trimmed.charAt(i - 1)) {
+                if (trimmed.charAt(i) == trimmed.charAt(i - 1)) { //check for repeated operators
                     if (isNaN(trimmed.charAt(i))) valid = false;
                 }
             }
         }
     }
-    
+
     return valid;
 }
+
+
+
+
+
+
+
 
 const add = function (val1, val2) {
     return val1 + val2;
