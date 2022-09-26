@@ -54,5 +54,16 @@ body {
 }
 
 #equals {
+    width: 104px;
+    height: 104px;
+    background-color: white;
+    border-radius: 4%;
+
+    display: flex;
+    flex: 0 1 auto;
+    justify-content: center;
+    align-items: center;
+
+    font-size: x-large;
     flex: 2 1 auto;
 }

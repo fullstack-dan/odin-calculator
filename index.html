@@ -15,35 +15,24 @@
             <div id="output">80085 KEK</div>
         </div>
         <div id="buttons">
-            <div class="button" id="1" data-val="1">1</div>
-            <div class="button" id="2" data-val="2">2</div>
-            <div class="button" id="3" data-val="3">3</div>
-            <div class="button" id="plus" data-val="+">+</div>
-            <div class="button" id="4" data-val="4">4</div>
-            <div class="button" id="5" data-val="5">5</div>
-            <div class="button" id="6" data-val="6">6</div>
-            <div class="button" id="minus" data-val="-">-</div>
-            <div class="button" id="7" data-val="7">7</div>
-            <div class="button" id="8" data-val="8">8</div>
-            <div class="button" id="9" data-val="9">9</div>
-            <div class="button" id="multiply" data-val="*">*</div>
-            <div class="button" id="0" data-val="0">0</div>
-            <div class="button" id="equals" data-val="=">=</div>
-            <div class="button" id="divide" data-val="/">/</div>
+            <div class="button number" id="1" data-val="1">1</div>
+            <div class="button number" id="2" data-val="2">2</div>
+            <div class="button number" id="3" data-val="3">3</div>
+            <div class="button operator" id="plus" data-val="+">+</div>
+            <div class="button number" id="4" data-val="4">4</div>
+            <div class="button number" id="5" data-val="5">5</div>
+            <div class="button number" id="6" data-val="6">6</div>
+            <div class="button operator" id="minus" data-val="-">-</div>
+            <div class="button number" id="7" data-val="7">7</div>
+            <div class="button number" id="8" data-val="8">8</div>
+            <div class="button number" id="9" data-val="9">9</div>
+            <div class="button operator" id="multiply" data-val="*">*</div>
+            <div class="button number" id="0" data-val="0">0</div>
+            <div class="operator" id="equals" data-val="=">=</div>
+            <div class="button operator" id="divide" data-val="/">/</div>
         </div>
     </div>
 </body>
-<script>
-    const body = document.querySelector('body');
-
-    var currentOp = "";
-
-    const buttons = document.querySelectorAll('.button');
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            currentOp += button.dataset.val;
-        });
-    });
-</script>
+<script src="script.js"></script>
 
 </html>
