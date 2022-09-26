@@ -1,38 +1,30 @@
 const body = document.querySelector('body');
-const output = document.querySelector('#output')
-var currentOp = "";
-var operators;
-var operands;
-var chars;
+const output = document.querySelector('#output');
 
 const buttons = document.querySelectorAll('.button');
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if (button.classList.contains('operator')) {
-            if (!currentOp[0]) {
-                currentOp += button.dataset.val;
+            if (!output.textContent[0]) {
+                output.textContent += button.dataset.val;
             } else {
-                currentOp += (` ${button.dataset.val} `);
+                output.textContent += (` ${button.dataset.val} `);
             }
         } else {
-            currentOp += button.dataset.val;
+            output.textContent += button.dataset.val;
         }
-
-        output.textContent = currentOp;
     });
 });
 
 const equalsButton = document.querySelector('#equals');
-
-equalsButton.addEventListener('click', () => {
-    calculate(currentOp);
-    currentOp = "";
-});
+equalsButton.addEventListener('click', calculate(output.textContent));
 
 function calculate(data) {
     if (!parse(data)) { //call to parser
         return;
     }
+
+    chars = parse(data);
 
     //at this point dealing with string of form (a + b - c * d / e)
     while (chars.includes("*") || chars.includes("/")) {
@@ -78,9 +70,7 @@ function parse(data) {
     if (!validate(data)) { //call to validator
         alert('Invalid operation! Please try again.');
         return false;
-    }
-    chars = data.split(' ');
-    return true;
+    } else return data.split(' ');
 }
 
 function validate(data) {
@@ -105,53 +95,3 @@ function validate(data) {
 
     return valid;
 }
-
-
-
-
-
-
-
-
-const add = function (val1, val2) {
-    return val1 + val2;
-};
-
-const subtract = function (val1, val2) {
-    return val1 - val2;
-};
-
-const sum = function (array) {
-    let sum = 0;
-    if (!(array.length >= 1)) {
-        return 0;
-    } else {
-        for (let i = 0; i < array.length; i++) {
-            sum += array[i];
-        }
-    }
-    return sum;
-};
-
-const multiply = function (array) {
-    let prod = 1;
-    for (let i = 0; i < array.length; i++) {
-        prod *= array[i];
-    }
-    return prod;
-};
-const divide = function (val1, val2) {
-    return val1 / val2;
-};
-
-const power = function (val1, val2) {
-    return Math.pow(val1, val2);
-};
-
-const factorial = function (val) {
-    let fac = 1;
-    while (val != 0) {
-        fac *= val--;
-    }
-    return fac;
-};
